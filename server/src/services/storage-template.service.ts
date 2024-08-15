@@ -85,7 +85,16 @@ export class StorageTemplateService implements OnEvents {
       systemMetadataRepository,
       this.logger,
     );
+
+    this.registerHandlebarsHelpers();                                                                                                                                                         
+
   }
+
+  private registerHandlebarsHelpers() {                                                                                                                                                       
+     handlebar.registerHelper('equal', function (arg1, arg2, options) {                                                                                                                     
+       return (arg1 == arg2) ? true : false
+     });                                                                                                                                                                                       
+   }        
 
   onConfigValidateEvent({ newConfig }: SystemConfigUpdateEvent) {
     try {

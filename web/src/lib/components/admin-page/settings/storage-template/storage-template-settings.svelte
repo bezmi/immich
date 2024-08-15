@@ -10,6 +10,7 @@
   import handlebar from 'handlebars';
   import { isEqual } from 'lodash-es';
   import * as luxon from 'luxon';
+  import { createEventDispatcher, onMount } from 'svelte';
   import { fade } from 'svelte/transition';
   import type { SettingsResetEvent, SettingsSaveEvent } from '../admin-settings';
   import SupportedDatetimePanel from './supported-datetime-panel.svelte';
@@ -48,6 +49,12 @@
       return 'error';
     }
   };
+
+  onMount(() => {
+    return handlebar.registerHelper('equal', (arg1, arg2, options) => {                                                                                                                             
+      return (arg1 == arg2) ? true : false                                                                                                                                                                       
+    }); 
+  });
 
   const renderTemplate = (templateString: string) => {
     const template = handlebar.compile(templateString, {
